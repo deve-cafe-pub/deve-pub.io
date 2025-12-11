@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Kategorileri göster
 function showCategories() {
+    window.scrollTo(0, 0);
     currentView = 'categories';
     const menuContainer = document.getElementById('menu-items');
     menuContainer.innerHTML = '';
@@ -46,6 +47,7 @@ function showCategories() {
 
 // Alkol alt kategorilerini göster
 function showAlcoholSubcategories() {
+    window.scrollTo(0, 0);
     currentView = 'alcohol-subcategories';
     const menuContainer = document.getElementById('menu-items');
     menuContainer.innerHTML = '<button onclick="showCategories()" style="position: fixed; top: 20px; left: 20px; padding: 8px 12px; font-size: 0.85em; z-index: 1000;">← Geri</button>';
@@ -69,6 +71,7 @@ function showAlcoholSubcategories() {
 
 // Ürünleri göster
 async function showProducts(categoryId) {
+    window.scrollTo(0, 0);
     currentView = 'products';
     selectedCategory = categoryId;
     const menuContainer = document.getElementById('menu-items');
