@@ -101,7 +101,7 @@ const menuItems = [
     { id: 75, name: "Ice Latte", price: 110, category: "sicak-icecekler", image: "images/ice-latte.jpg", description: "Ice Latte" },
     { id: 76, name: "Nar Suyu", price: 130, category: "taze-sikma", image: "images/nar-suyu.jpg", description: "Nar Suyu" },
     { id: 77, name: "Portakal Suyu", price: 120, category: "taze-sikma", image: "images/portakal-suyu.jpg", description: "Portakal Suyu" },
-    { id: 78, name: "Atom", price: 150, category: "taze-sikma", image: "images/atom.jpg", description: "Atom" },
+    { id: 78, name: "Atom", price: 150, category: "taze-sikma", image: "images/atom-icecegi.jpg", description: "Atom" },
     { id: 79, name: "Ballı Muz", price: 150, category: "taze-sikma", image: "images/balli-muz.jpg", description: "Ballı Muz" },
     { id: 80, name: "Meyve Suyu", price: 100, category: "soft-icecekler", image: "images/meyve-suyu.jpg", description: "Meyve Suyu" },
     { id: 81, name: "Kola", price: 100, category: "soft-icecekler", image: "images/kola.jpg", description: "Kola" },
