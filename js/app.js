@@ -15,10 +15,26 @@ document.addEventListener('DOMContentLoaded', async function() {
     showCategories();
 });
 
+// Tarayıcı geri tuşu desteği
+window.addEventListener('popstate', function(event) {
+    if (event.state) {
+        if (event.state.view === 'categories') {
+            showCategories();
+        } else if (event.state.view === 'alcohol-subcategories') {
+            showAlcoholSubcategories();
+        } else if (event.state.view === 'products') {
+            showProducts(event.state.categoryId);
+        }
+    } else {
+        showCategories();
+    }
+});
+
 // Kategorileri göster
 function showCategories() {
     window.scrollTo(0, 0);
     currentView = 'categories';
+    history.pushState({view: 'categories'}, '', '#categories');
     const menuContainer = document.getElementById('menu-items');
     menuContainer.innerHTML = '';
     
@@ -49,6 +65,7 @@ function showCategories() {
 function showAlcoholSubcategories() {
     window.scrollTo(0, 0);
     currentView = 'alcohol-subcategories';
+    history.pushState({view: 'alcohol-subcategories'}, '', '#alcohol');
     const menuContainer = document.getElementById('menu-items');
     menuContainer.innerHTML = '<button onclick="showCategories()" style="position: fixed; top: 20px; left: 20px; padding: 8px 12px; font-size: 0.85em; z-index: 1000;">← Geri</button>';
     
@@ -74,6 +91,7 @@ async function showProducts(categoryId) {
     window.scrollTo(0, 0);
     currentView = 'products';
     selectedCategory = categoryId;
+    history.pushState({view: 'products', categoryId: categoryId}, '', '#products-' + categoryId);
     const menuContainer = document.getElementById('menu-items');
     
     // Firebase'den güncel fiyatları yükle
