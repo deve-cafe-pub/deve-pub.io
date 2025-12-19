@@ -12,10 +12,13 @@ async function loadPricesFromFirebase() {
 // Firebase'den menü öğelerini yükle
 async function loadMenuItemsFromFirebase() {
     const firebaseItems = await loadFromDatabase('menuItems');
-    if (firebaseItems && firebaseItems.length > 0) {
-        // Firebase'den gelen ürünleri kullan
-        menuItems.length = 0;
-        menuItems.push(...firebaseItems);
+    if (firebaseItems) {
+        // Firebase object'ini array'e çevir
+        const itemsArray = Object.values(firebaseItems);
+        if (itemsArray.length > 0) {
+            menuItems.length = 0;
+            menuItems.push(...itemsArray);
+        }
     }
     // Fiyatları da yükle
     await loadPricesFromFirebase();
