@@ -9,9 +9,21 @@ async function loadPricesFromFirebase() {
     });
 }
 
+// Firebase'den menü öğelerini yükle
+async function loadMenuItemsFromFirebase() {
+    const firebaseItems = await loadFromDatabase('menuItems');
+    if (firebaseItems && firebaseItems.length > 0) {
+        // Firebase'den gelen ürünleri kullan
+        menuItems.length = 0;
+        menuItems.push(...firebaseItems);
+    }
+    // Fiyatları da yükle
+    await loadPricesFromFirebase();
+}
+
 // Sayfa yüklendiğinde
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadPricesFromFirebase();
+    await loadMenuItemsFromFirebase();
     showCategories();
 });
 
@@ -94,8 +106,8 @@ async function showProducts(categoryId) {
     history.pushState({view: 'products', categoryId: categoryId}, '', '#products-' + categoryId);
     const menuContainer = document.getElementById('menu-items');
     
-    // Firebase'den güncel fiyatları yükle
-    await loadPricesFromFirebase();
+    // Firebase'den güncel menü öğelerini ve fiyatları yükle
+    await loadMenuItemsFromFirebase();
     
     const filteredItems = menuItems.filter(item => item.category === categoryId);
     
