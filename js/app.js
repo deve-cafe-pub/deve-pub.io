@@ -45,6 +45,11 @@ window.addEventListener('popstate', function(event) {
     }
 });
 
+// İlk yükleme için state ekle
+if (!history.state) {
+    history.replaceState({view: 'categories'}, '', '#categories');
+}
+
 // Kategorileri göster
 function showCategories() {
     window.scrollTo(0, 0);
