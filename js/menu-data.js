@@ -44,7 +44,7 @@ const menuItems = [
     { id: 21, name: "5'li Tekila Shot", price: 500, category: "shotlar", image: "images/tekila.jpg", description: "5'li Tekila Shot" },
     { id: 22, name: "Jagermeister Shot", price: 300, category: "shotlar", image: "images/bira.jpg", description: "Jagermeister Shot" },
     { id: 23, name: "Votka Shot", price: 200, category: "shotlar", image: "images/bira.jpg", description: "Votka Shot" },
-    { id: 24, name: "Viski Duble", price: 550, category: "viski", image: "images/viski-duble.jpg", description: "Viski Duble" },
+    { id: 24, name: "Viski Duble", price: 550, category: "viski", image: "images/viski.jpg", description: "Viski Duble" },
     { id: 25, name: "Viski Tek", price: 370, category: "viski", image: "images/viski.jpg", description: "Viski Tek" },
     { id: 26, name: "Chivas 35cl", price: 1600, category: "viski", image: "images/chivas.jpg", description: "Chivas 35cl" },
     { id: 27, name: "Chivas 50cl", price: 2200, category: "viski", image: "images/chivas.jpg", description: "Chivas 50cl" },
