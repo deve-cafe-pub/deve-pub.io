@@ -70,9 +70,6 @@ function showCategories() {
             }
         };
         categoryCard.innerHTML = `
-            <div class="menu-item-image">
-                <img src="${cat.image}" alt="${cat.name}" onerror="this.parentElement.innerHTML='📷 ${cat.name}'">
-            </div>
             <div class="menu-item-content">
                 <h3>${cat.name}</h3>
             </div>
@@ -95,9 +92,6 @@ function showAlcoholSubcategories() {
         subcategoryCard.style.cursor = 'pointer';
         subcategoryCard.onclick = () => showProducts(subcat.id);
         subcategoryCard.innerHTML = `
-            <div class="menu-item-image">
-                <img src="${subcat.image}" alt="${subcat.name}" onerror="this.parentElement.innerHTML='📷 ${subcat.name}'">
-            </div>
             <div class="menu-item-content">
                 <h3>${subcat.name}</h3>
             </div>
@@ -130,9 +124,6 @@ async function showProducts(categoryId) {
         const menuItem = document.createElement('div');
         menuItem.className = 'menu-item';
         menuItem.innerHTML = `
-            <div class="menu-item-image">
-                <img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='📷 ${item.name}'">
-            </div>
             <div class="menu-item-content">
                 <h3>${item.name}</h3>
                 <div class="description">${item.description}</div>

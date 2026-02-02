@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervasyon - DeVe Coffee & Pub</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="css/reservation-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="home.html" class="back-btn">← Ana Sayfa</a>
+            <h1>📅 Masa Rezervasyonu</h1>
+        </header>
+
+        <div class="reservation-wrapper">
+            <!-- Kroki Bölümü -->
+            <div class="floor-plan">
+                <h2>Mekan Yerleşimi</h2>
+                <div class="plan-container">
+                    <!-- Giriş -->
+                    <div class="entrance">🚪 GİRİŞ</div>
+                    
+                    <!-- Mutfak (Sağda) -->
+                    <div class="kitchen">🍳 MUTFAK</div>
+                    
+                    <!-- Mutfak Karşısı - 2 Masa (Duvar Yanı) -->
+                    <div class="table table-1" data-table="1" data-capacity="4">
+                        <span class="table-number">1</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    <div class="table table-2" data-table="2" data-capacity="4">
+                        <span class="table-number">2</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    
+                    <!-- Kadınlar Tuvaleti -->
+                    <div class="wc">🚺 WC</div>
+                    
+                    <!-- WC Yanı - 2 Masa -->
+                    <div class="table table-3" data-table="3" data-capacity="4">
+                        <span class="table-number">3</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    <div class="table table-4" data-table="4" data-capacity="4">
+                        <span class="table-number">4</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    
+                    <!-- WC Karşısı - 1 Masa -->
+                    <div class="table table-5" data-table="5" data-capacity="4">
+                        <span class="table-number">5</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    
+                    <!-- Orta Alan - 2 Masa -->
+                    <div class="table table-6" data-table="6" data-capacity="4">
+                        <span class="table-number">6</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    <div class="table table-7" data-table="7" data-capacity="4">
+                        <span class="table-number">7</span>
+                        <span class="capacity">👤👤👤👤</span>
+                    </div>
+                    
+                    <!-- Sahne -->
+                    <div class="stage">🎤 SAHNE</div>
+                    
+                    <!-- Arka Bölüm - 3 Masa -->
+                    <div class="table table-8" data-table="8" data-capacity="6">
+                        <span class="table-number">8</span>
+                        <span class="capacity">👤👤👤👤👤👤</span>
+                    </div>
+                    <div class="table table-9" data-table="9" data-capacity="6">
+                        <span class="table-number">9</span>
+                        <span class="capacity">👤👤👤👤👤👤</span>
+                    </div>
+                    <div class="table table-10" data-table="10" data-capacity="2">
+                        <span class="table-number">10</span>
+                        <span class="capacity">👤👤</span>
+                    </div>
+                </div>
+                <div class="legend">
+                    <span class="legend-item"><span class="dot available"></span> Müsait</span>
+                    <span class="legend-item"><span class="dot reserved"></span> Dolu</span>
+                    <span class="legend-item"><span class="dot selected"></span> Seçili</span>
+                </div>
+            </div>
+
+            <!-- Rezervasyon Formu -->
+            <div class="reservation-form">
+                <h2>Rezervasyon Bilgileri</h2>
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label>Seçili Masa</label>
+                        <input type="text" id="selectedTable" readonly placeholder="Lütfen masa seçin">
+                    </div>
+                    <div class="form-group">
+                        <label>Ad Soyad *</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon *</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tarih *</label>
+                        <input type="date" id="reservationDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Saat *</label>
+                        <input type="time" id="reservationTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kişi Sayısı *</label>
+                        <input type="number" id="guestCount" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Not</label>
+                        <textarea id="note" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Rezervasyon Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/reservation.js"></script>
+</body>
+</html>

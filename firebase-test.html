@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test - DeVe Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .loading { color: #ffc107; }
+        button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #A0522D; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Firebase Bağlantı Testi</h1>
+    
+    <div class="test-box">
+        <h2>1. Firebase Bağlantısı</h2>
+        <div id="connection-status" class="loading">Test ediliyor...</div>
+    </div>
+    
+    <div class="test-box">
+        <h2>2. Menü Öğeleri (menuItems)</h2>
+        <button onclick="testMenuItems()">Test Et</button>
+        <div id="menu-items-status"></div>
+        <pre id="menu-items-data"></pre>
+    </div>
+    
+    <div class="test-box">
+        <h2>3. Fiyatlar (menuPrices)</h2>
+        <button onclick="testPrices()">Test Et</button>
+        <div id="prices-status"></div>
+        <pre id="prices-data"></pre>
+    </div>
+    
+    <div class="test-box">
+        <h2>4. Stok (menuStock)</h2>
+        <button onclick="testStock()">Test Et</button>
+        <div id="stock-status"></div>
+        <pre id="stock-data"></pre>
+    </div>
+    
+    <div class="test-box">
+        <h2>5. Masa Siparişleri (tableOrders)</h2>
+        <button onclick="testOrders()">Test Et</button>
+        <div id="orders-status"></div>
+        <pre id="orders-data"></pre>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWtAjBA2cBNZdMnR9s88uyV6h61RFMmw0",
+            authDomain: "deve-3b098.firebaseapp.com",
+            databaseURL: "https://deve-3b098-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "deve-3b098",
+            storageBucket: "deve-3b098.firebasestorage.app",
+            messagingSenderId: "709312232350",
+            appId: "1:709312232350:web:0428b59946fa7ca102348f"
+        };
+
+        // Firebase'i başlat
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Bağlantı testi
+        database.ref('.info/connected').on('value', (snapshot) => {
+            const status = document.getElementById('connection-status');
+            if (snapshot.val() === true) {
+                status.className = 'success';
+                status.textContent = '✅ Firebase bağlantısı başarılı!';
+            } else {
+                status.className = 'error';
+                status.textContent = '❌ Firebase bağlantısı yok!';
+            }
+        });
+
+        async function testMenuItems() {
+            const statusDiv = document.getElementById('menu-items-status');
+            const dataDiv = document.getElementById('menu-items-data');
+            
+            statusDiv.className = 'loading';
+            statusDiv.textContent = 'Yükleniyor...';
+            
+            try {
+                const snapshot = await database.ref('menuItems').once('value');
+                const data = snapshot.val();
+                
+                if (data) {
+                    const items = Object.values(data);
+                    statusDiv.className = 'success';
+                    statusDiv.textContent = `✅ ${items.length} ürün bulundu`;
+                    dataDiv.textContent = JSON.stringify(items.slice(0, 3), null, 2) + '\n... (ilk 3 ürün)';
+                } else {
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = '❌ Veri bulunamadı';
+                    dataDiv.textContent = '';
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = '❌ Hata: ' + error.message;
+                dataDiv.textContent = '';
+            }
+        }
+
+        async function testPrices() {
+            const statusDiv = document.getElementById('prices-status');
+            const dataDiv = document.getElementById('prices-data');
+            
+            statusDiv.className = 'loading';
+            statusDiv.textContent = 'Yükleniyor...';
+            
+            try {
+                const snapshot = await database.ref('menuPrices').once('value');
+                const data = snapshot.val();
+                
+                if (data) {
+                    const count = Object.keys(data).length;
+                    statusDiv.className = 'success';
+                    statusDiv.textContent = `✅ ${count} fiyat bulundu`;
+                    dataDiv.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = '❌ Veri bulunamadı';
+                    dataDiv.textContent = '';
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = '❌ Hata: ' + error.message;
+                dataDiv.textContent = '';
+            }
+        }
+
+        async function testStock() {
+            const statusDiv = document.getElementById('stock-status');
+            const dataDiv = document.getElementById('stock-data');
+            
+            statusDiv.className = 'loading';
+            statusDiv.textContent = 'Yükleniyor...';
+            
+            try {
+                const snapshot = await database.ref('menuStock').once('value');
+                const data = snapshot.val();
+                
+                if (data) {
+                    const count = Object.keys(data).length;
+                    statusDiv.className = 'success';
+                    statusDiv.textContent = `✅ ${count} stok kaydı bulundu`;
+                    dataDiv.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = '❌ Veri bulunamadı';
+                    dataDiv.textContent = '';
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = '❌ Hata: ' + error.message;
+                dataDiv.textContent = '';
+            }
+        }
+
+        async function testOrders() {
+            const statusDiv = document.getElementById('orders-status');
+            const dataDiv = document.getElementById('orders-data');
+            
+            statusDiv.className = 'loading';
+            statusDiv.textContent = 'Yükleniyor...';
+            
+            try {
+                const snapshot = await database.ref('tableOrders').once('value');
+                const data = snapshot.val();
+                
+                if (data) {
+                    const count = Object.keys(data).length;
+                    statusDiv.className = 'success';
+                    statusDiv.textContent = `✅ ${count} masa kaydı bulundu`;
+                    dataDiv.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = '❌ Veri bulunamadı (Normal - masa boşsa)';
+                    dataDiv.textContent = '';
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.textContent = '❌ Hata: ' + error.message;
+                dataDiv.textContent = '';
+            }
+        }
+
+        // Sayfa yüklendiğinde otomatik test
+        window.onload = function() {
+            setTimeout(() => {
+                testMenuItems();
+                testPrices();
+                testStock();
+                testOrders();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
